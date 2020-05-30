@@ -2,6 +2,8 @@ Aplikacja zosała utworzona przy użyciu Laravel 5.8. Za serwer bazodanowy posł
 
 Główny adres pod jakim działa aplikacja to "/public/products".
 
+<h2>Instalacja aplikcaji</h2>
+
 1. Instalacja bazy danych oraz uruchomienie aplikacji:<br /><br />
     Przy użyciu programu XAMPP należy stworzyć dwie bazy danych:
     - laravelapp - główna baza danych do której należy zaimportować plik (laravelapp.sql - znajduje się on w repozytorium),
@@ -9,7 +11,9 @@ Główny adres pod jakim działa aplikacja to "/public/products".
 
 2. Pliki aplikacji należy umieścić w folderze "htdocs" programu XAMPP.
 
-3. Zawarte funkcjonalności dostępne dla każdego konta oraz użytkownika niezalogowanego:
+<h2>Funkcjonalności</h2>
+
+1. Zawarte funkcjonalności dostępne dla każdego konta oraz użytkownika niezalogowanego:
     - logowanie oraz rejestracja dla użytkownika (zostały przeze mnie stworzone dwa podstawowe konta "user" oraz "admin", które pozwalają na przeprowadzenie testów związanych z autoryzacją konkretnych użytkowników dla określonych podstron),
     - wyszukiwarka produktów,
     - sortowanie produktów po kategoriach,
@@ -17,7 +21,7 @@ Główny adres pod jakim działa aplikacja to "/public/products".
     - podstrona konkretnego produktu, która wyświetla się po naciśnięciu przycisku "Szczegóły",
     - wyświetlanie ilości produktów,
 
-4. Elementy dostępne jedynie dla konta "admin"
+2. Elementy dostępne jedynie dla konta "admin"
     - podstrona edycji konkretnego produktu dostępna jedynie dla konta "admin" dostępna pod przyciskiem "Edytuj",
     - możliwość usunięcia produktu dostępna jedynie dla konta "admin" dostępna pod przyciskiem "Usuń",
     - podstrona dodawania produktu, dostępna jedynie dla konta 
