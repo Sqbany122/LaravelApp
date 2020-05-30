@@ -34,7 +34,6 @@
                 <tr class="font-weight-bold">
                     <td>Nazwa produktu</td>
                     <td>Cena</td>
-                    <td>Opis</td>
                     <td colspan=3>Akcje</td>
                 </tr>
             </thead>
@@ -44,7 +43,6 @@
                         <tr>
                             <td>{{$product->product_name}}</td>
                             <td>{{$product->price}}zł</td>
-                            <td>{{$product->description}}</td>
                             <td><a class="btn btn-success rounded-0 text-light" href="{{ url('/products') }}/{{$product->id}}">Szczegóły</a></td>
                             @if (Auth::check() && Auth::user()->hasAnyRole('admin'))
                                 <td><a class="btn btn-primary rounded-0 text-light" href="{{ url('/products') }}/{{$product->id}}/edit">Edytuj</a></td>

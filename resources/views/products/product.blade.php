@@ -11,6 +11,7 @@
                         <td>Nazwa produktu</td>
                         <td>Cena</td>
                         <td>Opis</td>
+                        <td>Kategoria</td>
                         @if (Auth::check() && Auth::user()->hasAnyRole('admin'))
                             <td colspan=2>Akcje</td>
                         @endif
@@ -21,6 +22,7 @@
                         <td>{{$product->product_name}}</td>
                         <td>{{$product->price}}zł</td>
                         <td>{{$product->description}}</td>
+                        <td>{{$product->category_name}}</td>
                         @if (Auth::check() && Auth::user()->hasAnyRole('admin'))
                             <td><a class="btn btn-primary rounded-0 text-light" href="{{ url('/products') }}/{{$product->id}}/edit">Edytuj</a></td>
                             <td>
