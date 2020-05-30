@@ -10,4 +10,9 @@ class Product extends Model
     protected $table = 'products';
     // Primary key
     public $primaryKey = 'id';
+
+    public function path()
+    {
+        return '/products';
+    }
 }

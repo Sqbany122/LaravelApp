@@ -17,6 +17,9 @@
                 {{ Form::label('description', 'Opis produktu') }}
                 {{ Form::textarea('description', '', ['rows' => '5', 'class' => 'form-control', 'placeholder' => 'Opis produktu']) }}
             </div>
+            <div class="form-group">
+                {!! Form::select('category_name', $cats, null, ['class' => 'form-control', 'placeholder' => 'Wybierz kategorie produktu']) !!}
+            </div>
             {{ Form::submit('Dodaj produkt', ['class' => 'btn btn-primary mt-3 rounded-0']) }}
         {!! Form::close() !!}
         <a href="{{ url('/products') }}" class="btn btn-primary mt-3 rounded-0 text-light">Wróć</a>

@@ -3,7 +3,8 @@
 @section('content')
 <div class="content">
     <div class="container mt-5">
-    <h1 class="text-center mb-5">Widok produktu {{$product->product_name}}</h1>
+    @if (!empty($product))
+        <h1 class="text-center mb-5">Widok produktu - {{$product->product_name}}</h1>
             <table class="table table-bordered">
                 <thead class="text-center">
                     <tr class="font-weight-bold">
@@ -32,7 +33,11 @@
                     </tr>
                 </tbody>
             </table>
-            <a href="{{ url('/products') }}" class="btn btn-primary mt-3 rounded-0 text-light">Wróć</a>
+        <a href="{{ url('/products') }}" class="btn btn-primary mt-3 rounded-0 text-light">Wróć</a>
+    @else
+        <h1 class="text-center mb-5">Brak produktu</h1>
+        <a href="{{ url('/products') }}" class="btn btn-primary mt-3 rounded-0 text-light">Wróć</a>
+    @endif   
     </div>
 </div>
 @endsection

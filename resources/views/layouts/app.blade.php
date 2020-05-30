@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>ProductApp</title>
+    <title>LaravelProductApp</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -27,7 +27,9 @@
 </head>
 <body>
     <div id="app">
+    @if (!request()->is('login') && !request()->is('register') && !request()->is('password/reset'))
         @include('inc.navbar')
+    @endif     
         <main class="py-4">
             @include('inc.messages')
             @yield('content')

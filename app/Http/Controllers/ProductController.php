@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Categories;
+use Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -15,8 +17,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return view('products.index')->with('products', $products);
+        $products = Product::paginate(6);
+        $cats = Categories::get();
+        return view('products.index', compact('products', 'cats'));
     }
 
     /**
@@ -25,15 +28,43 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('products.create');
+    {  
+        $cats = Categories::all()->pluck('category_name', 'category_name');
+
+        if (Auth::check() && Auth::user()->hasAnyRole('admin')) {
+            return view('products.create', compact('cats'));
+        } else {
+            return redirect('/products');
+        }
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     */
     public function search()
     {
         $search = \Request::get('search');
-        $products = Product::where('product_name', 'like', '%'.$search.'%')->get();
-        return view('products.index')->with('products', $products);
+        $cats = Categories::get();
+        $products = Product::where('product_name', 'like', '%'.$search.'%')->paginate(6);
+        $pagination = $products->appends (array (
+            'search' => \Request::get('search')
+        ));
+        return view('products.index', compact('products', 'cats', 'search'))->withQuery($search);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     */
+    public function categories($id)
+    {
+        $cats = Categories::get();
+        $specifyCategory = Categories::select('category_name')->where('id', $id)->get();
+        $products = Product::select('products.id', 'products.product_name', 'products.price', 'products.description')
+                    ->join('categories', 'categories.category_name', '=', 'products.category_name')
+                    ->where('categories.id', $id)->paginate(6);             
+        return view('products.index', compact('products', 'cats', 'specifyCategory'));
     }
 
     /**
@@ -47,14 +78,16 @@ class ProductController extends Controller
         $this->validate($request, [
             'product_name' => 'required',
             'price'  => 'required',
-            'description' => 'required'          
+            'description' => 'required',
+            'category_name' => 'required'           
         ]);
-
+        
         // Create new product
         $product = new Product;
         $product->product_name = $request->input('product_name');
         $product->price = $request->input('price');
         $product->description = $request->input('description');
+        $product->category_name = $request->input('category_name');
         $product->save();
         
         return redirect('/products')->with('success', 'Dodano nowy produkt');
@@ -69,7 +102,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        return view('products.product')->with('product', $product);
+        return view('products.product')->with('product', $product); 
     }
 
     /**
@@ -80,8 +113,13 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-        return view('products.edit')->with('product', $product);
+        $products = Product::find($id);
+        $cats = Categories::all()->pluck('category_name', 'category_name');
+        if (Auth::check() && Auth::user()->hasAnyRole('admin')) {
+            return view('products.edit', compact('products', 'cats'));
+        } else {
+            return redirect('/products');
+        }     
     }
 
     /**
@@ -96,7 +134,8 @@ class ProductController extends Controller
         $this->validate($request, [
             'product_name' => 'required',
             'price'  => 'required',
-            'description' => 'required'          
+            'description' => 'required',
+            'category_name' => 'required'      
         ]);
 
         // Create new product
@@ -104,6 +143,7 @@ class ProductController extends Controller
         $product->product_name = $request->input('product_name');
         $product->price = $request->input('price');
         $product->description = $request->input('description');
+        $product->category_name = $request->input('category_name');
         $product->save();
         
         return redirect('/products')->with('success', 'Zaktualizowano prpdukt');
