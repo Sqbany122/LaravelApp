@@ -99,12 +99,14 @@ class ProductTest extends TestCase
         $response = $this->patch('/products/'.$product->id, [
             'product_name' => 'Produkt testowy edytowany',
             'price' => '20',
+            'discounted_price' => '10',
             'description' => 'Testowy opis produktu edytowany',
             'category_name' => 'Laptopy i komputery',
         ]);
 
         $this->assertSame('Produkt testowy edytowany', Product::first()->product_name);
         $this->assertEquals('20.00', Product::first()->price);
+        $this->assertEquals('10.00', Product::first()->discounted_price);
         $this->assertEquals('Testowy opis produktu edytowany', Product::first()->description);
         $this->assertEquals('Laptopy i komputery', Product::first()->category_name);
     }
@@ -132,6 +134,7 @@ class ProductTest extends TestCase
         return [
             'product_name' => 'Produkt testowy',
             'price' => '1000',
+            'discounted_price' => '900',
             'description' => 'Testowy opis produktu',
             'category_name' => 'Laptopy i komputery',
         ];

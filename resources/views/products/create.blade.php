@@ -11,7 +11,11 @@
             </div>
             <div class="form-group">
                 {{ Form::label('price', 'Cena produktu') }}
-                {{ Form::number('price', '0.00', ['step' => 'any', 'class' => 'form-control', 'placeholder' => 'Cena produktu']) }}
+                {{ Form::number('price', '', ['step' => 'any', 'class' => 'form-control', 'placeholder' => '0,00']) }}
+            </div>
+            <div class="form-group">
+                {{ Form::label('discounted_price', 'Cena produktu po obniżce') }}
+                {{ Form::number('discounted_price', '', ['step' => 'any', 'class' => 'form-control', 'placeholder' => '0,00']) }}
             </div>
             <div class="form-group">
                 {{ Form::label('description', 'Opis produktu') }}

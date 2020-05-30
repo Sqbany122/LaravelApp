@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 30 Maj 2020, 21:46
+-- Czas generowania: 30 Maj 2020, 23:23
 -- Wersja serwera: 10.4.11-MariaDB
 -- Wersja PHP: 7.4.3
 
@@ -73,7 +73,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2020_05_27_140909_create_role_user_table', 1),
 (5, '2020_05_27_155156_create_products_table', 1),
 (6, '2020_05_28_153258_create_categories_table', 1),
-(7, '2020_05_28_154436_add_categories_to_products', 1);
+(7, '2020_05_28_154436_add_categories_to_products', 1),
+(8, '2020_05_30_201915_add_discounted_price_to_products', 2),
+(9, '2020_05_30_204959_add_discounted_price_to_products', 3);
 
 -- --------------------------------------------------------
 
@@ -100,17 +102,22 @@ CREATE TABLE `products` (
   `description` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `category_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `category_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `discounted_price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Zrzut danych tabeli `products`
 --
 
-INSERT INTO `products` (`id`, `product_name`, `price`, `description`, `created_at`, `updated_at`, `category_name`) VALUES
-(1, 'Samsung Galaxy s20', '3500.25', 'To jest nowy Samsung. Jest drogi ale fajny!!', '2020-05-29 15:21:39', '2020-05-30 17:08:18', 'Smartfony'),
-(7, 'Samsung Galaxy s10', '2800.23', 'To jest trochę starszy model Samsunga.', '2020-05-30 17:08:43', '2020-05-30 17:08:43', 'Smartfony'),
-(8, 'Sony PlayStation 4 Slim 500GB', '1359.00', 'Poznaj mniejszą i smuklejszą konsolę PlayStation 4 Slim. Poza nowym wyglądem urządzenie oferuje graczom niesamowite wrażenia wizualne dzięki obecności grafiki HDR.', '2020-05-30 17:09:48', '2020-05-30 17:09:48', 'Konsole i gry');
+INSERT INTO `products` (`id`, `product_name`, `price`, `description`, `created_at`, `updated_at`, `category_name`, `discounted_price`) VALUES
+(1, 'Samsung Galaxy s20', '3500.25', 'To jest nowy Samsung. Jest drogi ale fajny!!', '2020-05-29 15:21:39', '2020-05-30 17:58:25', 'Smartfony', NULL),
+(7, 'Samsung Galaxy s10', '2800.23', 'To jest trochę starszy model Samsunga.', '2020-05-30 17:08:43', '2020-05-30 19:19:17', 'Smartfony', '2400.00'),
+(8, 'Sony PlayStation 4 Slim 500GB', '1359.00', 'Poznaj mniejszą i smuklejszą konsolę PlayStation 4 Slim. Poza nowym wyglądem urządzenie oferuje graczom niesamowite wrażenia wizualne dzięki obecności grafiki HDR.', '2020-05-30 17:09:48', '2020-05-30 19:16:33', 'Konsole i gry', '1100.10'),
+(10, 'Razer Kraken Essential', '189.00', 'Wejdź do gry ze słuchawkami Razer Kraken Essential.', '2020-05-30 18:32:28', '2020-05-30 18:32:28', 'Gaming', NULL),
+(11, 'LG 43UM7500', '1519.00', 'Zrelaksuj się w pełni przed 43-calowym ekranem telewizora LG 43UM7500 i zapomnij o żmudnym wyszukiwaniu ulubionych treści.', '2020-05-30 18:41:03', '2020-05-30 19:13:11', 'TV i audio', '1420.20'),
+(12, 'Logitech G102', '89.99', 'Genialna w swojej prostocie, zapewniająca najlepsze wrażenia z rozgrywki - Logitech G102 to myszka gamingowa, dzięki której zdominujesz pole bitwy.', '2020-05-30 18:53:25', '2020-05-30 18:53:25', 'Gaming', NULL),
+(13, 'Plextor 512GB 2,5\"', '299.00', 'Seria M8V wyposażona jest w wysokiej jakości kontroler i 64-warstwowe układy 3D NAND.', '2020-05-30 19:04:44', '2020-05-30 19:04:44', 'Podzespoły komputerowe', NULL);
 
 -- --------------------------------------------------------
 
@@ -241,13 +248,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT dla tabeli `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT dla tabeli `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT dla tabeli `roles`

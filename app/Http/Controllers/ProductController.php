@@ -61,7 +61,7 @@ class ProductController extends Controller
     {
         $cats = Categories::get();
         $specifyCategory = Categories::select('category_name')->where('id', $id)->get();
-        $products = Product::select('products.id', 'products.product_name', 'products.price', 'products.description')
+        $products = Product::select('products.id', 'products.product_name', 'products.price', 'products.description', 'products.discounted_price')
                     ->join('categories', 'categories.category_name', '=', 'products.category_name')
                     ->where('categories.id', $id)->paginate(6);             
         return view('products.index', compact('products', 'cats', 'specifyCategory'));
@@ -78,6 +78,7 @@ class ProductController extends Controller
         $this->validate($request, [
             'product_name' => 'required',
             'price'  => 'required',
+            'discounted_price' => '',
             'description' => 'required',
             'category_name' => 'required'           
         ]);
@@ -86,6 +87,7 @@ class ProductController extends Controller
         $product = new Product;
         $product->product_name = $request->input('product_name');
         $product->price = $request->input('price');
+        $product->discounted_price = $request->input('discounted_price');
         $product->description = $request->input('description');
         $product->category_name = $request->input('category_name');
         $product->save();
@@ -134,6 +136,7 @@ class ProductController extends Controller
         $this->validate($request, [
             'product_name' => 'required',
             'price'  => 'required',
+            'discounted_price' => '',
             'description' => 'required',
             'category_name' => 'required'      
         ]);
@@ -142,11 +145,12 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->product_name = $request->input('product_name');
         $product->price = $request->input('price');
+        $product->discounted_price = $request->input('discounted_price');
         $product->description = $request->input('description');
         $product->category_name = $request->input('category_name');
         $product->save();
         
-        return redirect('/products')->with('success', 'Zaktualizowano prpdukt');
+        return redirect('/products')->with('success', 'Zaktualizowano produkt');
     }
 
     /**

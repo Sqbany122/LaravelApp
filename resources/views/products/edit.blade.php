@@ -12,7 +12,11 @@
             </div>
             <div class="form-group">
                 {{ Form::label('price', 'Cena produktu') }}
-                {{ Form::number('price', $products->price, ['step' => 'any', 'class' => 'form-control', 'placeholder' => 'Cena produktu']) }}
+                {{ Form::number('price', $products->price, ['step' => 'any', 'class' => 'form-control']) }}
+            </div>
+            <div class="form-group">
+                {{ Form::label('discounted_price', 'Cena produktu po obniżce') }}
+                {{ Form::number('discounted_price', $products->discounted_price, ['step' => 'any', 'class' => 'form-control', 'placeholder' => '0,00']) }}
             </div>
             <div class="form-group">
                 {{ Form::label('description', 'Opis produktu') }}
@@ -23,6 +27,7 @@
             </div>
             {{ Form::hidden('_method', 'PUT') }}
             {{ Form::submit('Zapisz Produkt', ['class' => 'btn btn-primary mt-3 rounded-0']) }}
+            {{ Form::hidden('url',Request::url()) }}
         {!! Form::close() !!}
         <a href="{{ url('/products') }}" class="btn btn-primary mt-3 rounded-0 text-light">Wróć</a>
     @else

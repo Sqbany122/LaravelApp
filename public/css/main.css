@@ -28,6 +28,12 @@ body {
     width: 30% !important;
 }
 
+.normalPrice {
+    color: grey;
+    text-decoration: line-through;
+    margin-right: 5px;
+}
+
 @media only screen and (max-width: 1657px) {
     .searchMobile {
         width: 50% !important;

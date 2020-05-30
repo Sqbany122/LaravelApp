@@ -4,7 +4,7 @@
 <div class="content">
     <div class="container mt-5">
     @if (!empty($product))
-        <h1 class="text-center mb-5">Widok produktu - {{$product->product_name}}</h1>
+        <h1 class="text-center mb-5">Widok produktu - {{ $product->product_name }}</h1>
             <table class="table table-bordered">
                 <thead class="text-center">
                     <tr class="font-weight-bold">
@@ -19,10 +19,14 @@
                 </thead>
                 <tbody class="text-center">
                     <tr>
-                        <td>{{$product->product_name}}</td>
-                        <td>{{$product->price}}zł</td>
-                        <td>{{$product->description}}</td>
-                        <td>{{$product->category_name}}</td>
+                        <td>{{ $product->product_name }}</td>
+                        @if ($product->discounted_price == NULL)
+                            <td>{{ $product->price }}zł</td>
+                        @else
+                            <td><span class="normalPrice">{{ $product->price }}zł</span><span class="discountedPrice">{{ $product->discounted_price }}zł</span></td>
+                        @endif
+                        <td>{{ $product->description }}</td>
+                        <td>{{ $product->category_name }}</td>
                         @if (Auth::check() && Auth::user()->hasAnyRole('admin'))
                             <td><a class="btn btn-primary rounded-0 text-light" href="{{ url('/products') }}/{{$product->id}}/edit">Edytuj</a></td>
                             <td>

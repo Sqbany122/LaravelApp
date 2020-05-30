@@ -8,7 +8,7 @@
                 <h1 class="text-center mb-5">Kategoria - {{ $category->category_name }}</h1>
             @endforeach
         @elseif (request()->is('products/search*'))
-            <h1 class="text-center mb-5">Wyszukiwana fraza - {{$search}}</h1>
+            <h1 class="text-center mb-5">Wyszukiwana fraza - {{ $search }}</h1>
         @else
             <h1 class="text-center mb-5">Wszystkie produkty</h1>
         @endif
@@ -41,8 +41,12 @@
                 @if (count($products) > 0)
                     @foreach ($products as $product)
                         <tr>
-                            <td>{{$product->product_name}}</td>
-                            <td>{{$product->price}}zł</td>
+                            <td>{{ $product->product_name }}</td>
+                            @if ($product->discounted_price == NULL)
+                                <td>{{ $product->price }}zł</td>
+                            @else
+                                <td><span class="normalPrice">{{ $product->price }}zł</span><span class="discountedPrice">{{ $product->discounted_price }}zł</span></td>
+                            @endif
                             <td><a class="btn btn-success rounded-0 text-light" href="{{ url('/products') }}/{{$product->id}}">Szczegóły</a></td>
                             @if (Auth::check() && Auth::user()->hasAnyRole('admin'))
                                 <td><a class="btn btn-primary rounded-0 text-light" href="{{ url('/products') }}/{{$product->id}}/edit">Edytuj</a></td>
@@ -68,7 +72,7 @@
             </div>
         </div>
         @if (request()->is('products/category/*') || request()->is('products/search*'))
-            <a href="{{ url()->previous() }}" class="btn btn-primary mt-3 rounded-0 text-light">Wróć</a>
+            <a href="{{ url('/products') }}" class="btn btn-primary mt-3 rounded-0 text-light">Wróć</a>
         @endif
     </div>
 </div>
