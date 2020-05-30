@@ -11,6 +11,9 @@ Główny adres pod jakim działa aplikacja to "/public/products".
 
 2. Pliki aplikacji należy umieścić w folderze "htdocs" programu XAMPP.
 
+<h4>Uwaga!</h4>
+Do repozytorium nie został dodany folder "vendor". Z uwagi na to po umieszczeniu aplikacji w folderze "htdocs" należy przejść do lokalizacji katalogu używająć np.: wiersza poleceń, oraz wywołać komendę "composer install", która spowoduje doinstalowanie brakujących elementów.
+
 <h2>Funkcjonalności</h2>
 
 1. Zawarte funkcjonalności dostępne dla każdego konta oraz użytkownika niezalogowanego:
